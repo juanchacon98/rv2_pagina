@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pantalla de Bienvenida · Recorrido 360°</title>
+<style>
+  :root{
+    --bg:#f7f9fc;
+    --card:#ffffff;
+    --text:#1c1c1c;
+    --muted:#5f6b7a;
+    --brand:#0078ff;     /* azul CTA */
+    --brand2:#00b894;    /* verde secundario */
+    --radius:20px;
+    --shadow:0 8px 25px rgba(0,0,0,.08);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;background:var(--bg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--text)}
+  .wrap{min-height:100%;display:grid;place-items:center;padding:16px}
+  .card{
+    width:min(880px, 94vw);
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    overflow:hidden;
+    border:1px solid #e0e6ed;
+  }
+  .hero{
+    position:relative;
+    aspect-ratio: 16/7;
+    background:#eee;
+  }
+  .hero img{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; object-position:center;
+    border-bottom:1px solid #e0e6ed;
+  }
+  .badge{
+    position:absolute; left:16px; bottom:16px;
+    background:rgba(255,255,255,.85);
+    border:1px solid #e0e6ed;
+    color:#0078ff; padding:6px 12px; border-radius:999px;
+    font-size:14px; font-weight:600;
+  }
+  .body{padding:24px clamp(18px,3.5vw,34px) 28px}
+  h1{margin:0 0 10px;font-size:clamp(22px,3.2vw,32px);line-height:1.2;color:#0a0a0a}
+  .lead{margin:0 0 16px;color:var(--muted);font-size:clamp(14px,2.3vw,17px)}
+  .actions{display:flex; flex-wrap:wrap; gap:12px; margin-top:20px}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:12px 18px; border-radius:14px; text-decoration:none; font-weight:600;
+    border:1px solid #d1d9e6; background:#f9fbfd; color:var(--text);
+    transition: all 0.2s ease-in-out;
+  }
+  .btn.primary{background:var(--brand); color:#fff; border:none}
+  .btn.primary:hover{background:#005ecc}
+  .btn.secondary:hover{background:#eef3f9}
+  .legal{margin-top:16px; color:var(--muted); font-size:12px}
+  @media (max-width:520px){
+    .hero{aspect-ratio: 16/10;}
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <article class="card" role="dialog" aria-label="Bienvenida al recorrido 360">
+      <!-- FOTO SUPERIOR -->
+      <div class="hero">
+        <img src="casa.jpg" alt="Fachada de la casa – vista previa del recorrido 360°" loading="eager">
+        <div class="badge">Recorrido 360° Demo</div>
+      </div>
+
+      <!-- TEXTO -->
+      <div class="body">
+        <h1>Bienvenido a tu recorrido virtual</h1>
+        <p class="lead">Explora esta propiedad de manera inmersiva, gira en 360° y recorre cada espacio como si estuvieras allí mismo. Ideal para conocer antes de visitar.</p>
+
+        <!-- Nuevo contenido escrito (se reemplazaron los botones por más texto informativo) -->
+        <section class="details" aria-label="Qué verás en el tour">
+          <h2>Qué verás en este tour</h2>
+          <ul>
+            <li>Visitas panorámicas 360° de cada estancia.</li>
+            <li>Puntos de interés con fotos y descripciones.</li>
+            <li>Planos básicos y medidas de las áreas principales.</li>
+            <li>Recorrido libre o navegación guiada por escenas.</li>
+          </ul>
+        </section>
+
+        <section class="howto" aria-label="Cómo usar el tour" style="margin-top:12px;">
+          <h2>Cómo usarlo</h2>
+          <ol>
+            <li>Arrastra o desliza para girar la vista.</li>
+            <li>Haz clic en los íconos para ver detalles o abrir planos.</li>
+            <li>Usa la barra de navegación para cambiar entre estancias.</li>
+          </ol>
+        </section>
+
+        <p class="legal">Consejo: usa los íconos interactivos para ver detalles, planos o información adicional de cada espacio.</p>
+
+        <p class="contact" style="margin-top:12px;color:var(--muted);font-size:14px">
+          Para más información o agendar una visita presencial, escribe por WhatsApp a
+          <a href="https://wa.me/584143357226?text=Hola%20Juan!%20Quiero%20agendar%20un%20recorrido%20virtual" target="_blank" rel="noopener">+58 414 3357226</a>.
+        </p>
+      </div>
+    </article>
+  </div>
+</body>
+</html>

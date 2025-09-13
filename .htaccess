@@ -1,0 +1,25 @@
+
+RewriteEngine on
+Options -Indexes
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:X-Forwarded-SSL} !on
+RewriteCond %{HTTP_HOST} ^rv2ven\.com$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.rv2ven\.com$
+RewriteRule ^/?$ "https\:\/\/rv2ven\.com\/" [R=301,L]
+
+
+<Files 403.shtml>
+order allow,deny
+allow from all
+</Files>
+
+deny from 185.39.19.49
+deny from 45.89.70.31
+deny from 185.39.19.34
+deny from 185.39.19.48
+deny from 45.89.70.30
+deny from 185.39.19.97
+deny from 45.8.17.51
+deny from 185.39.19.43
+deny from 212.102.57.148
+deny from 212.102.37.152

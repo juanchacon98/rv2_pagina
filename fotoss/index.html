@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Borrar marca de agua (Móvil)</title>
+  <style>
+    canvas { border: 1px solid #222; touch-action: none; }
+    #controls { margin: 10px 0; }
+    body { font-family: sans-serif; }
+  </style>
+</head>
+<body>
+  <h3>Borrar marca de agua</h3>
+  <input type="file" id="upload" accept="image/*">
+  <div id="controls">
+    <button onclick="clearDrawing()">Limpiar Todo</button>
+    <button onclick="downloadImage()">Descargar Imagen</button>
+  </div>
+  <canvas id="canvas"></canvas>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    let drawing = false;
+
+    // Ajustar el tamaño del canvas al tamaño de la imagen
+    document.getElementById('upload').onchange = function(e){
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.onload = function(evt){
+        const img = new Image();
+        img.onload = function(){
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx.drawImage(img, 0, 0);
+        }
+        img.src = evt.target.result;
+      }
+      reader.readAsDataURL(file);
+    }
+
+    // Eventos táctiles para móvil
+    canvas.addEventListener('touchstart', function(e) {
+      drawing = true;
+      drawTouch(e);
+    });
+    canvas.addEventListener('touchmove', function(e) {
+      if (drawing) drawTouch(e);
+      e.preventDefault(); // Prevenir scroll al dibujar
+    }, { passive: false });
+    canvas.addEventListener('touchend', function(e) {
+      drawing = false;
+      ctx.beginPath();
+    });
+
+    // Dibuja círculo tipo borrador donde se toca
+    function drawTouch(e) {
+      for (let i = 0; i < e.touches.length; i++) {
+        const rect = canvas.getBoundingClientRect();
+        const x = e.touches[i].clientX - rect.left;
+        const y = e.touches[i].clientY - rect.top;
+        ctx.save();
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.beginPath();
+        ctx.arc(x, y, 30, 0, Math.PI * 2, false); // Cambia el 30 para modificar el tamaño del "borrador"
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    // Limpiar todo el canvas
+    function clearDrawing() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    // Descargar imagen
+    function downloadImage() {
+      const link = document.createElement('a');
+      link.download = 'sin_marca_agua.png';
+      link.href = canvas.toDataURL();
+      link.click();
+    }
+  </script>
+</body>
+</html>
